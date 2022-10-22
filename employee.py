@@ -2,30 +2,76 @@
 """ENTER YOUR SOLUTION HERE!"""
 
 class Employee:
-    def __init__(self, name):
+    def __init__(self, name, comissions, comission_pay, bonus_comission, salary, hours=0):
         self.name = name
+        self.comissions = comissions
+        self.comission_pay = comission_pay
+        self.bonus_comission = bonus_comission
+        self.salary = salary
+        self.hours = hours
 
     def get_pay(self):
-        pass
+        total = 0
+
+        if self.hours == 0:
+            total += self.salary
+            if self.comissions!=0:
+                total += (self.comissions*self.comission_pay)
+            elif self.bonus_comission !=0:
+                total += self.bonus_comission
+            return total
+
+        else:
+            total += (self.salary * self.hours)
+            if self.comissions != 0:
+                total += (self.comissions * self.comission_pay)
+            elif self.bonus_comission != 0:
+                total += self.bonus_comission
+            return total
+
 
     def __str__(self):
-        return self.name
+        final_string = self.name + " works on a "
+        if self.hours !=0: #if hourly worker
+            final_string += "contract of " + str(self.hours) + " hours at " + str(self.salary) + "/hour"
+
+            if self.comissions > 0:
+                final_string += " and recieves a comission for " + str(self.comissions) + " contract(s) at " + str(
+                    self.comission_pay) + "/contract. Their total pay is " + str(self.get_pay()) + "."
+
+            elif (self.bonus_comission != 0):
+                final_string += " and recieves a bonus comission of " + str(
+                    self.bonus_comission) + ". Their total pay is " + str(self.get_pay()) + "."
+
+            else:
+                final_string += ". Their total pay is " + str(self.get_pay()) + "."
+
+            return final_string
+        else:
+            final_string += "monthly salary of " + str(self.salary)
+            if self.comissions > 0:
+                final_string += " and recieves a comission for " + str(self.comissions) + " contract(s) at " + str(
+                    self.comission_pay) + "/contract. Their total pay is " + str(self.get_pay()) + "."
+
+            elif (self.bonus_comission != 0):
+                final_string += " and recieves a bonus comission of " + str(
+                    self.bonus_comission) + ". Their total pay is " + str(self.get_pay()) + "."
+
+            else:
+                final_string += ". Their total pay is " + str(self.get_pay()) + "."
+
+            return final_string
+
+billie = Employee('Billie',0,0,0,4000)
+
+charlie = Employee('Charlie', 0, 0, 0, 25, 100)
+
+renee = Employee('Renee', 4, 200, 0, 3000)
+
+jan = Employee('Jan', 3, 220, 0, 25, 150)
+
+robbie = Employee('Robbie', 0, 0, 1500, 2000)
+
+ariel = Employee('Ariel', 0, 0, 600, 30, 120)
 
 
-# Billie works on a monthly salary of 4000.  Their total pay is 4000.
-billie = Employee('Billie')
-
-# Charlie works on a contract of 100 hours at 25/hour.  Their total pay is 2500.
-charlie = Employee('Charlie')
-
-# Renee works on a monthly salary of 3000 and receives a commission for 4 contract(s) at 200/contract.  Their total pay is 3800.
-renee = Employee('Renee')
-
-# Jan works on a contract of 150 hours at 25/hour and receives a commission for 3 contract(s) at 220/contract.  Their total pay is 4410.
-jan = Employee('Jan')
-
-# Robbie works on a monthly salary of 2000 and receives a bonus commission of 1500.  Their total pay is 3500.
-robbie = Employee('Robbie')
-
-# Ariel works on a contract of 120 hours at 30/hour and receives a bonus commission of 600.  Their total pay is 4200.
-ariel = Employee('Ariel')
